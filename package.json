@@ -13,7 +13,8 @@
     "prepublishOnly": "expo-module prepublishOnly",
     "expo-module": "expo-module",
     "open:ios": "xed example/ios",
-    "open:android": "open -a \"Android Studio\" example/android"
+    "open:android": "open -a \"Android Studio\" example/android",
+    "release": "release-it"
   },
   "keywords": [
     "react-native",
@@ -31,16 +32,25 @@
   "author": "Thilo Reiner (https://github.com/tlow92)",
   "license": "MIT",
   "homepage": "https://github.com/tlow92/expo-key-event#readme",
-  "dependencies": {},
   "devDependencies": {
     "@types/react": "~18.3.12",
-    "expo-module-scripts": "^4.0.2",
     "expo": "~52.0.0",
-    "react-native": "0.76.0"
+    "expo-module-scripts": "^4.0.2",
+    "react-native": "0.76.0",
+    "release-it": "^17.11.0"
   },
   "peerDependencies": {
     "expo": "*",
     "react": "*",
     "react-native": "*"
+  },
+  "release-it": {
+    "$schema": "https://unpkg.com/release-it/schema/release-it.json",
+    "git": {
+      "commitMessage": "chore: release v${version}"
+    },
+    "npm": {
+      "publish": true
+    }
   }
 }
