@@ -11,6 +11,8 @@ import expo.modules.keyevent.ExpoKeyEventView
 
 
 class ExpoKeyEventModule : Module() {
+  private var listenerView: ExpoKeyEventView? = null
+
   override fun definition() = ModuleDefinition {
     Name("ExpoKeyEvent")
     Events("onKeyPress")
@@ -31,7 +33,7 @@ class ExpoKeyEventModule : Module() {
         rootView.addView(listenerView)
 
         // Make sure our view actually gets focus
-        listenerView.requestFocus()
+        listenerView?.requestFocus()
       }
 
       return@Function null
@@ -42,7 +44,12 @@ class ExpoKeyEventModule : Module() {
       val activity = appContext.currentActivity ?: return@Function null
 
       activity.runOnUiThread {
-        listenerView.removeFromParent()
+        // Safely remove the view if it exists
+        listenerView?.let { view ->
+          val parent = view.parent as? ViewGroup
+          parent?.removeView(view)
+        }
+        listenerView = null
       }
     }
   }
