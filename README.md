@@ -1,13 +1,13 @@
 `expo-key-event` provides an interface for reading key events such as from external bluetooth keyboards.
 
 <p align="center">
-  <a href=".github/key-event-ios.mp4">
+  <a href="https://github.com/user-attachments/assets/9bfc25cf-6b18-46f0-947e-3d982ed46fd5">
     <img src=".github/key-event-ios-preview.png" alt="iOS preview" width="250" />
   </a>
-  <a href=".github/key-event-android.mp4">
+  <a href="https://github.com/user-attachments/assets/b4a71bd3-6617-4ae6-98c0-60ba285c2143">
     <img src=".github/key-event-android-preview.png" alt="Android preview" width="250" />
   </a>
-  <a href=".github/key-event-web.mp4">
+  <a href="https://github.com/user-attachments/assets/469deda3-9254-4a66-b56f-bf79c7e20997">
     <img src=".github/key-event-web-preview.png" alt="Web preview" width="350" />
   </a>
 </p>
