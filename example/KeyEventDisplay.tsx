@@ -1,42 +1,62 @@
 import { useKeyEvent } from "expo-key-event";
 import { useEffect, useState } from "react";
 import { Text, View } from "react-native";
+import Animated, {
+  FadeIn,
+  FadeInLeft,
+  FadeOut,
+  LinearTransition,
+  SlideInRight,
+} from "react-native-reanimated";
 
-type KeyEventDisplayProps = {};
+type DisplayedKey = {
+  id: string;
+  keyCode: string;
+};
 
-export function KeyEventDisplay({}: KeyEventDisplayProps) {
+export function KeyEventDisplay() {
   const { keyEvent } = useKeyEvent();
 
-  const [keys, setKeys] = useState<
-    {
-      id: string;
-      keyCode: string;
-    }[]
-  >([]);
+  const [keys, setKeys] = useState<DisplayedKey[]>([]);
 
   useEffect(() => {
     if (!keyEvent?.key) return;
-    setKeys((_) => [
-      {
-        id: Math.random().toString(),
-        keyCode: keyEvent.key,
-      },
-      ..._,
-    ]);
+    setKeys((_) => {
+      if (_.length > 5) _.pop();
+      return [
+        {
+          id: Math.random().toString(),
+          keyCode: keyEvent.key,
+        },
+        ..._,
+      ];
+    });
   }, [keyEvent, setKeys]);
 
   return (
-    <View>
-      {keys.slice(0, 5).map((item, i) => {
+    <Animated.FlatList
+      contentContainerStyle={{
+        width: "100%",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+      data={keys}
+      renderItem={({ item, index }) => {
         return (
-          <Text
+          <Animated.Text
             key={item.id}
-            style={[i === 0 ? { fontWeight: "bold" } : {}, { fontSize: 24 }]}
+            style={[
+              index === 0 ? { fontWeight: "bold" } : {},
+              { fontSize: 24 },
+            ]}
+            entering={FadeInLeft}
+            // exiting={FadeOut}
           >
             {item.keyCode}
-          </Text>
+          </Animated.Text>
         );
-      })}
-    </View>
+      }}
+      // itemLayoutAnimation={LinearTransition}
+    />
   );
 }

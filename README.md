@@ -1,4 +1,6 @@
-`expo-key-event` provides an interface for reading key events such as from external bluetooth keyboards on Android, iOS and Web.
+`expo-key-event` provides an interface for reading key events such as from external bluetooth keyboards.
+
+[![iOS](.github/key-event-ios-preview.png|width=100)](.github/key-event-android.mp4|width=100) [![Android](.github/key-event-android-preview.png|width=100)](.github/key-event-android.mp4|width=100) [![Web](.github/key-event-web-preview.png|width=100)](.github/key-event-web.mp4|width=100)
 
 ## Getting started
 
@@ -17,6 +19,12 @@ export function MyComponent() {
 }
 ```
 
+## Run example app
+
+`cd example`
+
+`npm run ios` / `npm run android` / `npm run web`
+
 ## Troubleshooting
 
 ### Error: Cannot find native module 'ExpoKeyEvent'
@@ -29,7 +37,7 @@ In short: Use `npx expo run:ios` instead of `npx expo start` (make sure bundleId
 ### Key events are not registered in iOS simulator
 
 Make sure that hardware keyboard is connected to the simulator.
-![hardware-keyboard-simulator](.github/connect-hardware-keyboard.png)
+<img src=".github/connect-hardware-keyboard.png" alt="hardware-keyboard-simulator" width="400px" />
 
 ### Key events are not registered in Android emulator
 
