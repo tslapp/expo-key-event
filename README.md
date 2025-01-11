@@ -31,6 +31,10 @@ In short: Use `npx expo run:ios` instead of `npx expo start` (make sure bundleId
 Make sure that hardware keyboard is connected to the simulator.
 ![hardware-keyboard-simulator](.github/connect-hardware-keyboard.png)
 
+### Key events are not registered in Android emulator
+
+Since the Android emulator does not support USB or Bluetooth, you need to use a physical device so that key events can be registered.
+
 ## How it works
 
 This module translates the [Apple UIKit](https://developer.apple.com/documentation/uikit/uikeyboardhidusage) and [Android KeyEvent](https://developer.android.com/reference/android/view/KeyEvent) constants to a common set of key event types matching the ones from [Web](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code).
