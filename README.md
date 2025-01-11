@@ -1,16 +1,45 @@
-`expo-key-event` provides an interface for reading key events such as from external bluetooth keyboards.
+<div align="center">
+  <h2 align="center">Expo-key-event</h2>
 
-<p align="center">
-  <a href="https://github.com/user-attachments/assets/9bfc25cf-6b18-46f0-947e-3d982ed46fd5">
-    <img src=".github/key-event-ios.gif" alt="iOS preview" width="250" />
-  </a>
-  <a href="https://github.com/user-attachments/assets/b4a71bd3-6617-4ae6-98c0-60ba285c2143">
-    <img src=".github/key-event-android.gif" alt="Android preview" width="250" />
-  </a>
-  <a href="https://github.com/user-attachments/assets/469deda3-9254-4a66-b56f-bf79c7e20997">
-    <img src=".github/key-event-web.gif" alt="Web preview" width="350" />
-  </a>
-</p>
+  <p align="center">
+    Interface for reading key events from external devices such as Bluetooth keyboards/gamepads.
+    <br />
+    <a href="https://github.com/tlow92/expo-key-event?tab=readme-ov-file#getting-started">Getting started</a>
+    &middot;
+    <a href="https://github.com/tlow92/expo-key-event/issues/new">Report Bug</a>
+  </p>
+</div>
+
+<br />
+<br />
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <strong>iOS</strong><br/>
+        <a href="https://github.com/user-attachments/assets/9bfc25cf-6b18-46f0-947e-3d982ed46fd5">
+          <img src=".github/key-event-ios.gif" alt="iOS preview" width="250" />
+        </a>
+      </td>
+      <td align="center">
+        <strong>Android</strong><br/>
+        <a href="https://github.com/user-attachments/assets/b4a71bd3-6617-4ae6-98c0-60ba285c2143">
+          <img src=".github/key-event-android.gif" alt="Android preview" width="250" />
+        </a>
+      </td>
+      <td align="center">
+        <strong>Web</strong><br/>
+        <a href="https://github.com/user-attachments/assets/469deda3-9254-4a66-b56f-bf79c7e20997">
+          <img src=".github/key-event-web.gif" alt="Web preview" width="350" />
+        </a>
+      </td>
+    </tr>
+  </table>
+
+</div>
+
+
 
 ## Getting started
 
