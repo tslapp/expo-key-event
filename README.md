@@ -47,6 +47,8 @@
 
 ## Usage
 
+Automatic listening: Key events are listened to as soon as `MyComponent` is mounted.
+
 ```tsx
 import { useKeyEvent } from "expo-key-event";
 import { Text } from "react-native";
@@ -55,6 +57,26 @@ export function MyComponent() {
   const { keyEvent } = useKeyEvent();
 
   return <Text>{keyEvent?.key}</Text>;
+}
+```
+
+
+Manual listening: Key events are listened to when `startListening` is called.
+
+```tsx
+import { useKeyEvent } from "expo-key-event";
+import { Text, View } from "react-native";
+
+export function MyComponent() {
+  const { keyEvent, startListening, stopListening } = useKeyEvent(false);
+
+  return (
+    <View>
+      <Text>{keyEvent?.key}</Text>
+      <Button title="Start listening" onPress={() => startListening()} />
+      <Button title="Stop listening" onPress={() => stopListening()} />
+    </View>
+  );
 }
 ```
 
