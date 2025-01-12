@@ -25,7 +25,7 @@ class ExpoKeyEventModule : Module() {
         val rootView = activity.findViewById<ViewGroup>(android.R.id.content)
 
         // Create and add our listener view
-        val listenerView = ExpoKeyEventView(activity, appContext) { eventData: Map<String, String> ->
+        listenerView = ExpoKeyEventView(activity, appContext) { eventData: Map<String, String> ->
           // Send the event back to JS
           sendEvent("onKeyPress", eventData)
         }

@@ -4,16 +4,23 @@ import { useEffect, useMemo } from "react";
 import ExpoKeyEventModule from "../ExpoKeyEventModule";
 import { unifyKeyCode } from "../utils/unifyKeyCode";
 
-export function useKeyEvent() {
+/**
+ *
+ * @param listenOnMount Pass 'false' to prevent automatic key event listening
+ * - Use startListening/stopListening to control the listener manually
+ * @returns
+ *
+ */
+export function useKeyEvent(listenOnMount = true) {
   const event = useEvent(ExpoKeyEventModule, "onKeyPress");
 
   useEffect(() => {
-    ExpoKeyEventModule.startListening();
+    if (listenOnMount) ExpoKeyEventModule.startListening();
 
     return () => {
       ExpoKeyEventModule.stopListening();
     };
-  }, []);
+  }, [listenOnMount]);
 
   const keyEvent = useMemo(() => {
     if (!event) return null;
@@ -23,7 +30,13 @@ export function useKeyEvent() {
   }, [event]);
 
   return {
+    /**
+     * Start listening for key events
+     */
     startListening: ExpoKeyEventModule.startListening,
+    /**
+     * Stop listening for key events
+     */
     stopListening: ExpoKeyEventModule.stopListening,
     keyEvent,
   };
