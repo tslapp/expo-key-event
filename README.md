@@ -45,6 +45,9 @@
 
 `npm i expo-key-event`
 
+
+<br />
+
 ## Usage
 
 Automatic listening: Key events are listened to as soon as `MyComponent` is mounted.
@@ -80,11 +83,15 @@ export function MyComponent() {
 }
 ```
 
+<br />
+
 ## Run example app
 
 `cd example`
 
 `npm run ios` / `npm run android` / `npm run web`
+
+<br />
 
 ## Troubleshooting
 
@@ -108,6 +115,15 @@ Another option is to use `adb` to send key events to the emulator.
 
 e.g. `adb shell input keyevent 10`
 
+<br />
+
 ## How it works
 
 This module translates the [Apple UIKit](https://developer.apple.com/documentation/uikit/uikeyboardhidusage) and [Android KeyEvent](https://developer.android.com/reference/android/view/KeyEvent) constants to a common set of key event types matching the ones from [Web](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code).
+
+
+<br />
+
+## Todo
+
+- [ ] Implement modifier key combinations similar to [web](https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event) like altKey, ctrlKey, metaKey, shiftKey
