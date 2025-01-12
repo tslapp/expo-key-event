@@ -7,5 +7,14 @@ declare class ExpoKeyEventModule extends NativeModule<ExpoKeyEventModuleEvents> 
   stopListening(): void;
 }
 
-// This call loads the native module object from the JSI.
-export default requireNativeModule<ExpoKeyEventModule>("ExpoKeyEvent");
+let Module;
+try {
+  Module = requireNativeModule<ExpoKeyEventModule>("ExpoKeyEvent");
+} catch (e) {
+  console.error(e);
+  throw new Error(
+    "ExpoKeyEventModule not available. Make sure you are not using Expo Go. Check https://github.com/tlow92/expo-key-event?tab=readme-ov-file#error-cannot-find-native-module-expokeyevent for more information."
+  );
+}
+
+export default Module;
