@@ -33,11 +33,11 @@ export function useKeyEvent(listenOnMount = true) {
     /**
      * Start listening for key events
      */
-    startListening: ExpoKeyEventModule.startListening,
+    startListening: () => ExpoKeyEventModule.startListening(),
     /**
      * Stop listening for key events
      */
-    stopListening: ExpoKeyEventModule.stopListening,
+    stopListening: () => ExpoKeyEventModule.stopListening(),
     keyEvent,
   };
 }
