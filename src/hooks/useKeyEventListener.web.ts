@@ -1,7 +1,6 @@
-import {useCallback, useEffect} from 'react';
+import { useCallback, useEffect } from "react";
 
-import {KeyPressEvent} from '../ExpoKeyEvent.types';
-import ExpoKeyEventModule from '../ExpoKeyEventModule';
+import { KeyPressEvent } from "../ExpoKeyEvent.types";
 
 /**
  *
@@ -15,15 +14,15 @@ export function useKeyEventListener(
   listenOnMount = true
 ) {
   const onKeyDown = useCallback(
-    (event: KeyboardEvent) => listener({key: event.code}),
+    (event: KeyboardEvent) => listener({ key: event.code }),
     [listener]
   );
 
   useEffect(() => {
-    if (listenOnMount) addEventListener('keydown', onKeyDown);
+    if (listenOnMount) addEventListener("keydown", onKeyDown);
 
     return () => {
-      removeEventListener('keydown', onKeyDown);
+      removeEventListener("keydown", onKeyDown);
     };
   }, [listenOnMount]);
 
@@ -31,10 +30,10 @@ export function useKeyEventListener(
     /**
      * Start listening for key events
      */
-    startListening: () => ExpoKeyEventModule.startListening(),
+    startListening: () => addEventListener("keydown", onKeyDown),
     /**
      * Stop listening for key events
      */
-    stopListening: () => ExpoKeyEventModule.stopListening(),
+    stopListening: () => removeEventListener("keydown", onKeyDown),
   };
 }
