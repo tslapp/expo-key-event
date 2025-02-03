@@ -7,7 +7,7 @@ declare class ExpoKeyEventModule extends NativeModule<ExpoKeyEventModuleEvents> 
   stopListening(): void;
 }
 
-let Module;
+let Module: ReturnType<typeof requireNativeModule<ExpoKeyEventModule>>;
 try {
   Module = requireNativeModule<ExpoKeyEventModule>("ExpoKeyEvent");
 } catch (e) {
