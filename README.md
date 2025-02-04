@@ -39,12 +39,9 @@
 
 </div>
 
-
-
 ## Getting started
 
 `npm i expo-key-event`
-
 
 <br />
 
@@ -63,7 +60,6 @@ export function MyComponent() {
 }
 ```
 
-
 Manual listening: Key events are listened to when `startListening` is called.
 
 ```tsx
@@ -72,6 +68,28 @@ import { Text, View } from "react-native";
 
 export function MyComponent() {
   const { keyEvent, startListening, stopListening } = useKeyEvent(false);
+
+  return (
+    <View>
+      <Text>{keyEvent?.key}</Text>
+      <Button title="Start listening" onPress={() => startListening()} />
+      <Button title="Stop listening" onPress={() => stopListening()} />
+    </View>
+  );
+}
+```
+
+Handling state yourself: If you want to handle the state yourself or don't need the state at all, you can use the `useKeyEventListener` hook instead of the `useKeyEvent` hook.
+
+```tsx
+import { KeyPressEvent, useKeyEventListener } from "expo-key-event";
+import { Text, View } from "react-native";
+
+export function MyComponent() {
+  const [keyEvent, setKeyEvent] = useState<KeyPressEvent>();
+  const { startListening, stopListening } = useKeyEventListener((event) => {
+    setKeyEvent(event);
+  }, automaticControl);
 
   return (
     <View>
@@ -120,7 +138,6 @@ e.g. `adb shell input keyevent 10`
 ## How it works
 
 This module translates the [Apple UIKit](https://developer.apple.com/documentation/uikit/uikeyboardhidusage) and [Android KeyEvent](https://developer.android.com/reference/android/view/KeyEvent) constants to a common set of key event types matching the ones from [Web](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code).
-
 
 <br />
 
