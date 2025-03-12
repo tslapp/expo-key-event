@@ -39,6 +39,10 @@
 
 </div>
 
+## Requirements
+
+Expo SDK >= 52
+
 ## Getting started
 
 `npm i expo-key-event`
@@ -112,6 +116,10 @@ export function MyComponent() {
 <br />
 
 ## Troubleshooting
+
+### _expo.useEvent is not a function
+
+This is most likely due to using Expo SDK lower than 52. `useEvent` was introduced in SDK 52.
 
 ### Error: Cannot find native module 'ExpoKeyEvent'
 
