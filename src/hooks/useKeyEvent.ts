@@ -1,5 +1,6 @@
 import { useEvent } from "expo";
 import { useEffect, useMemo } from "react";
+import { DevSettings } from "react-native";
 
 import ExpoKeyEventModule from "../ExpoKeyEventModule";
 import { unifyKeyCode } from "../utils/unifyKeyCode";
@@ -8,10 +9,11 @@ import { unifyKeyCode } from "../utils/unifyKeyCode";
  *
  * @param listenOnMount Pass 'false' to prevent automatic key event listening
  * - Use startListening/stopListening to control the listener manually
+ * @param preventReload Prevent reloading the app when pressing 'r'
  * @returns
  *
  */
-export function useKeyEvent(listenOnMount = true) {
+export function useKeyEvent(listenOnMount = true, preventReload = false) {
   const event = useEvent(ExpoKeyEventModule, "onKeyPress");
 
   useEffect(() => {
@@ -24,8 +26,10 @@ export function useKeyEvent(listenOnMount = true) {
 
   const keyEvent = useMemo(() => {
     if (!event) return null;
+    const uniKey = unifyKeyCode(event.key);
+    if (!preventReload && __DEV__ && uniKey === "KeyR") DevSettings.reload();
     return {
-      key: unifyKeyCode(event.key),
+      key: uniKey,
     };
   }, [event]);
 

@@ -1,5 +1,6 @@
 import { useEventListener } from "expo";
 import { useCallback, useEffect } from "react";
+import { DevSettings } from "react-native";
 
 import { KeyPressEvent } from "../ExpoKeyEvent.types";
 import ExpoKeyEventModule from "../ExpoKeyEventModule";
@@ -10,14 +11,21 @@ import { unifyKeyCode } from "../utils/unifyKeyCode";
  * This is useful if you want to handle the state yourself or use the event outside of the react lifecycle.
  * @param listenOnMount Pass 'false' to prevent automatic key event listening
  * - Use startListening/stopListening to control the listener manually
+ * @param preventReload Prevent reloading the app when pressing 'r'
  *
  */
 export function useKeyEventListener(
   listener: (event: KeyPressEvent) => void,
-  listenOnMount = true
+  listenOnMount = true,
+  preventReload = false
 ) {
   const onKeyPress = useCallback(
-    ({ key }: KeyPressEvent) => listener({ key: unifyKeyCode(key) }),
+    ({ key }: KeyPressEvent) => {
+      const uniKey = unifyKeyCode(key);
+      if (!preventReload && __DEV__ && uniKey === "KeyR") DevSettings.reload();
+
+      listener({ key: uniKey });
+    },
     [listener]
   );
 
