@@ -5,5 +5,5 @@ export function unifyKeyCode(keyCode: string): string {
   if (__DEV__ && !res) {
     console.warn(`No mapping found for keyCode: ${keyCode}`);
   }
-  return res;
+  return res ?? keyCode;
 }
