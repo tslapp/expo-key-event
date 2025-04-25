@@ -11,29 +11,39 @@ import { KeyPressEvent } from "../ExpoKeyEvent.types";
  */
 export function useKeyEventListener(
   listener: (event: KeyPressEvent) => void,
-  listenOnMount = true
+  listenOnMount = true,
 ) {
   const onKeyDown = useCallback(
     (event: KeyboardEvent) => listener({ key: event.code }),
-    [listener]
+    [listener],
+  );
+
+  const startListening = useCallback(
+    () => addEventListener("keydown", onKeyDown),
+    [onKeyDown],
+  );
+
+  const stopListening = useCallback(
+    () => removeEventListener("keydown", onKeyDown),
+    [onKeyDown],
   );
 
   useEffect(() => {
-    if (listenOnMount) addEventListener("keydown", onKeyDown);
+    if (listenOnMount) startListening();
 
     return () => {
-      removeEventListener("keydown", onKeyDown);
+      stopListening();
     };
-  }, [listenOnMount]);
+  }, [listenOnMount, startListening, stopListening]);
 
   return {
     /**
      * Start listening for key events
      */
-    startListening: () => addEventListener("keydown", onKeyDown),
+    startListening,
     /**
      * Stop listening for key events
      */
-    stopListening: () => removeEventListener("keydown", onKeyDown),
+    stopListening,
   };
 }

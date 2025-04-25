@@ -17,7 +17,7 @@ import { unifyKeyCode } from "../utils/unifyKeyCode";
 export function useKeyEventListener(
   listener: (event: KeyPressEvent) => void,
   listenOnMount = true,
-  preventReload = false
+  preventReload = false,
 ) {
   const onKeyPress = useCallback(
     ({ key }: KeyPressEvent) => {
@@ -26,7 +26,7 @@ export function useKeyEventListener(
 
       listener({ key: uniKey });
     },
-    [listener]
+    [listener],
   );
 
   useEventListener(ExpoKeyEventModule, "onKeyPress", onKeyPress);
@@ -43,10 +43,10 @@ export function useKeyEventListener(
     /**
      * Start listening for key events
      */
-    startListening: () => ExpoKeyEventModule.startListening(),
+    startListening: ExpoKeyEventModule.startListening,
     /**
      * Stop listening for key events
      */
-    stopListening: () => ExpoKeyEventModule.stopListening(),
+    stopListening: ExpoKeyEventModule.stopListening,
   };
 }
