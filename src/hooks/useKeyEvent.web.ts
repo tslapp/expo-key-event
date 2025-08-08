@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from 'react';
 
-import { KeyPressEvent } from "../ExpoKeyEvent.types";
+import { KeyEvent } from '../ExpoKeyEvent.types';
 
 /**
  *
@@ -10,19 +10,23 @@ import { KeyPressEvent } from "../ExpoKeyEvent.types";
  *
  */
 export function useKeyEvent(listenOnMount = true) {
-  const [keyEvent, setKeyEvent] = useState<KeyPressEvent | null>(null);
+  const [keyEvent, setKeyEvent] = useState<KeyEvent | null>(null);
 
   const onKeyDown = useCallback((event: KeyboardEvent) => {
     setKeyEvent({ key: event.code });
   }, []);
 
   const startListening = useCallback(
-    () => addEventListener("keydown", onKeyDown),
+    () => {
+      addEventListener('keydown', onKeyDown);
+    },
     [onKeyDown],
   );
 
   const stopListening = useCallback(
-    () => removeEventListener("keydown", onKeyDown),
+    () => {
+      removeEventListener('keydown', onKeyDown);
+    },
     [onKeyDown],
   );
 

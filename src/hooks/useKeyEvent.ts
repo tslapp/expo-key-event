@@ -14,7 +14,7 @@ import { unifyKeyCode } from "../utils/unifyKeyCode";
  *
  */
 export function useKeyEvent(listenOnMount = true, preventReload = false) {
-  const event = useEvent(ExpoKeyEventModule, "onKeyPress");
+  const event = useEvent(ExpoKeyEventModule, "onKeyDown");
 
   useEffect(() => {
     if (listenOnMount) ExpoKeyEventModule.startListening();

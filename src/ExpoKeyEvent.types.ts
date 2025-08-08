@@ -1,7 +1,14 @@
-export type KeyPressEvent = {
+export type KeyEvent = {
   key: string;
 };
 
 export type ExpoKeyEventModuleEvents = {
-  onKeyPress: (event: KeyPressEvent) => void;
+  onKeyDown: (event: KeyEvent) => void;
+  onKeyUp: (event: KeyEvent) => void;
 };
+
+export type KeyEventListenerOptions = {
+  onKeyDown?: (event: KeyEvent) => void;
+  onKeyUp?: (event: KeyEvent) => void;
+  listenOnMount?: boolean;
+}

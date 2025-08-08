@@ -5,7 +5,7 @@ public class ExpoKeyEventModule: Module {
 
   public func definition() -> ModuleDefinition {
     Name("ExpoKeyEvent")
-    Events("onKeyPress")
+    Events("onKeyDown", "onKeyUp")
     Function("startListening") { [weak self] in
       guard let self = self else { return }
 
@@ -13,11 +13,18 @@ public class ExpoKeyEventModule: Module {
       DispatchQueue.main.async {
         // If we haven't already added the listener view, create one and add it.
         if self.keyboardListenerView == nil {
-          let listenerView = KeyboardListenerView { key in
-            self.sendEvent("onKeyPress", [
-              "key": key
-            ])
-          }
+          let listenerView = KeyboardListenerView(
+            onKeyDown: { key in
+              self.sendEvent("onKeyDown", [
+                "key": key
+              ])
+            },
+            onKeyUp: { key in
+              self.sendEvent("onKeyUp", [
+                "key": key
+              ])
+            }
+          )
 
           if let window = UIApplication.shared.delegate?.window,
              let rootView = window?.rootViewController?.view {
@@ -44,10 +51,12 @@ public class ExpoKeyEventModule: Module {
 
 /// A custom hidden view that can become first responder and intercept hardware key events.
 class KeyboardListenerView: UIView {
-  private let onKeyPress: (String) -> Void
+  private let onKeyDown: (String) -> Void
+  private let onKeyUp: (String) -> Void
 
-  init(_ onKeyPress: @escaping (String) -> Void) {
-    self.onKeyPress = onKeyPress
+  init(onKeyDown: @escaping (String) -> Void, onKeyUp: @escaping (String) -> Void) {
+    self.onKeyDown = onKeyDown
+    self.onKeyUp = onKeyUp
     super.init(frame: .zero)
 
     // Hide this view; we only need it to intercept events.
@@ -64,12 +73,14 @@ class KeyboardListenerView: UIView {
   }
 
   override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
-  super.pressesBegan(presses, with: event)
-  guard let uiKey = presses.first?.key else { return }
+    super.pressesBegan(presses, with: event)
+    guard let uiKey = presses.first?.key else { return }
+    onKeyDown(String(uiKey.keyCode.rawValue))
+  }
 
-  onKeyPress(String(uiKey.keyCode.rawValue))
-  return
-}
-
-
+  override func pressesEnded(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+    super.pressesEnded(presses, with: event)
+    guard let uiKey = presses.first?.key else { return }
+    onKeyUp(String(uiKey.keyCode.rawValue))
+  }
 }
