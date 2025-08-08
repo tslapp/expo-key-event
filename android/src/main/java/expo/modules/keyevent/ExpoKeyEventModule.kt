@@ -15,7 +15,7 @@ class ExpoKeyEventModule : Module() {
 
   override fun definition() = ModuleDefinition {
     Name("ExpoKeyEvent")
-    Events("onKeyPress")
+    Events("onKeyDown", "onKeyUp")
     Function("startListening") {
       // currentActivity might be null if the app is backgrounded or not yet ready
       val activity = appContext.currentActivity ?: return@Function null
@@ -24,11 +24,19 @@ class ExpoKeyEventModule : Module() {
         // Get the root view (which is typically a ViewGroup)
         val rootView = activity.findViewById<ViewGroup>(android.R.id.content)
 
-        // Create and add our listener view
-        listenerView = ExpoKeyEventView(activity, appContext) { eventData: Map<String, String> ->
-          // Send the event back to JS
-          sendEvent("onKeyPress", eventData)
-        }
+        // Create and add our listener view with callbacks for all three events
+        listenerView = ExpoKeyEventView(
+          activity,
+          appContext,
+          // onKeyDown callback
+          { eventData: Map<String, String> ->
+            sendEvent("onKeyDown", eventData)
+          },
+          // onKeyUp callback
+          { eventData: Map<String, String> ->
+            sendEvent("onKeyUp", eventData)
+          }
+        )
 
         rootView.addView(listenerView)
 

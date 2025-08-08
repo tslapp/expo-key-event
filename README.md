@@ -86,11 +86,11 @@ export function MyComponent() {
 Handling state yourself: If you want to handle the state yourself or don't need the state at all, you can use the `useKeyEventListener` hook instead of the `useKeyEvent` hook.
 
 ```tsx
-import { KeyPressEvent, useKeyEventListener } from "expo-key-event";
+import { KeyEvent, useKeyEventListener } from "expo-key-event";
 import { Text, View } from "react-native";
 
 export function MyComponent() {
-  const [keyEvent, setKeyEvent] = useState<KeyPressEvent>();
+  const [keyEvent, setKeyEvent] = useState<KeyEvent>();
   const { startListening, stopListening } = useKeyEventListener((event) => {
     setKeyEvent(event);
   }, automaticControl);
@@ -142,6 +142,33 @@ Another option is to use `adb` to send key events to the emulator.
 e.g. `adb shell input keyevent 10`
 
 <br />
+
+## Event Types
+
+This module provides three types of key events:
+
+- `onKeyDown`: Triggered when a key is initially pressed down.
+- `onKeyUp`: Triggered when a key that was pressed is released.
+
+You can listen to specific event types by using the appropriate event listeners:
+
+```tsx
+import { useKeyEventListener } from "expo-key-event";
+
+export function MyComponent() {
+  // Listen to all event types
+  useKeyEventListener({
+    onKeyDown: (event) => {
+      console.log('Key down:', event.key);
+    },
+    onKeyUp: (event) => {
+      console.log('Key up:', event.key);
+    }
+  });
+
+  return <View />;
+}
+```
 
 ## How it works
 
